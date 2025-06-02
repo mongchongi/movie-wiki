@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo, faPlay } from '@fortawesome/free-solid-svg-icons';
 
 const Banner = () => {
-  const { data } = useMoviesQuery();
+  const { data } = useMoviesQuery('popular');
 
   const randomIndex = Math.floor(Math.random() * data?.results.length);
 

@@ -1,0 +1,76 @@
+.movie-card {
+  height: 350px;
+  border-radius: 10px;
+  position: relative;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.movie-card__info {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.8);
+  border-radius: 10px;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.movie-card:hover .movie-card__info {
+  opacity: 1;
+}
+
+.movie-card__title {
+  margin-bottom: 15px;
+}
+
+.movie-card__genres {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.movie-card__genre {
+  background: rgb(120, 199, 187);
+  padding: 5px 8px;
+  border-radius: 50px;
+}
+
+.movie-card__stats {
+  display: flex;
+  gap: 10px;
+}
+
+.movie-card__average,
+.movie-card__popularity {
+  display: flex;
+  gap: 5px;
+}
+
+.movie-card__details-link {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 15px;
+  border-radius: 50px;
+  background: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  margin-top: 15px;
+}
+
+.movie-card__details-link:hover {
+  opacity: 0.8;
+}
+
+.movie-card__details-link > span {
+  padding-top: 3px;
+}

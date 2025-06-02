@@ -1,0 +1,28 @@
+.nav {
+  height: 60px;
+  display: flex;
+  align-items: center;
+}
+
+.nav__logo-link {
+  font-size: 32px;
+  text-decoration: none;
+  color: rgb(120, 199, 187);
+}
+
+.nav__list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0 30px;
+  display: flex;
+  gap: 30px;
+}
+
+.nav__link {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+}
+
+.nav__link--active {
+  color: rgb(120, 199, 187);
+}

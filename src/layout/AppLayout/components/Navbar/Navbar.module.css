@@ -6,6 +6,7 @@
 
 .nav__logo-link {
   font-size: 32px;
+  font-weight: bold;
   text-decoration: none;
   color: rgb(120, 199, 187);
 }

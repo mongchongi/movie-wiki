@@ -28,8 +28,8 @@ const MoviesPage = () => {
   }
 
   return (
-    <div className={styles['container']}>
-      <div className={styles['filters']}>필터링 부분</div>
+    <div className={styles['movies-page']}>
+      <div className={styles['movies-page__filters']}>필터링 부분</div>
       <ul className={styles['movies-page__list']}>
         {data?.pages.map((page) =>
           page.data.results.map((item) => (
@@ -40,7 +40,7 @@ const MoviesPage = () => {
         )}
       </ul>
       <div ref={ref} style={{ minHeight: '20px' }}>
-        <div className={styles['spinner']}></div>
+        <div className={styles['movies-page__spinner']}></div>
       </div>
     </div>
   );

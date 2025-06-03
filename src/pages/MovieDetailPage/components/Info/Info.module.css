@@ -1,0 +1,39 @@
+.movie-detail {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.movie-detail__title {
+  margin-bottom: -20px;
+}
+
+.movie-detail__genres {
+  display: flex;
+  gap: 10px;
+}
+
+.movie-detail__genre {
+  background: rgb(120, 199, 187);
+  padding: 8px 12px;
+  border-radius: 50px;
+}
+
+.movie-detail__stats {
+  display: flex;
+  gap: 10px;
+}
+
+.movie-detail__average,
+.movie-detail__popularity {
+  display: flex;
+  gap: 5px;
+}
+
+.movie-detail__label {
+  display: inline-block;
+  padding: 8px 12px;
+  background: rgb(120, 199, 187);
+  border-radius: 50px;
+  margin-right: 10px;
+}

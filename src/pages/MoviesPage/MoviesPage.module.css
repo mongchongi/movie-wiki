@@ -1,0 +1,14 @@
+.movies-page__list {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.movies-page__item {
+  width: calc((100% - 80px) / 5);
+  color: rgb(255, 255, 255);
+}

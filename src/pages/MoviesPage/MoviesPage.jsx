@@ -58,12 +58,16 @@ const MoviesPage = () => {
         />
       </div>
       <ul className={styles['movies-page__list']}>
-        {data?.pages.map((page) =>
-          page.data.results.map((item) => (
-            <li key={item.id} className={styles['movies-page__item']}>
-              <MovieCard movie={item} />
-            </li>
-          ))
+        {data?.pages.every((page) => page.data.results.length === 0) ? (
+          <div className={styles['movies-page__no-item']}>There is no movie information.</div>
+        ) : (
+          data?.pages.map((page) =>
+            page.data.results.map((item) => (
+              <li key={item.id} className={styles['movies-page__item']}>
+                <MovieCard movie={item} />
+              </li>
+            ))
+          )
         )}
       </ul>
       <div ref={ref} style={{ minHeight: '20px' }}>

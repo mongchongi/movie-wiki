@@ -4,16 +4,18 @@ import { useMovieDetailQuery } from '../../hooks/useMovieDetailQuery';
 import Loading from '../../common/components/Loading/Loading';
 import { useState } from 'react';
 import Info from './components/Info/Info';
+import Review from './components/Review/Review';
+import { useMovieReviewsQuery } from '../../hooks/useMovieReviewsQuery';
 
 const MovieDetailPage = () => {
   const [tab, setTab] = useState('Details');
 
   const { id } = useParams();
 
-  const { data, isLoading } = useMovieDetailQuery(id);
-  console.log('🚀 ~ MovieDetailPage ~ data:', data);
+  const { data: movieData, isLoading: movieLoading } = useMovieDetailQuery(id);
+  const { data: reviewsData, isLoading: reviewLoading } = useMovieReviewsQuery(id);
 
-  if (isLoading) {
+  if (movieLoading || reviewLoading) {
     return <Loading />;
   }
 
@@ -22,7 +24,7 @@ const MovieDetailPage = () => {
       <div
         className={styles['banner']}
         style={{
-          backgroundImage: `url(https://media.themoviedb.org/t/p/w1066_and_h600_bestv2/${data?.backdrop_path})`,
+          backgroundImage: `url(https://media.themoviedb.org/t/p/w1066_and_h600_bestv2/${movieData?.backdrop_path})`,
         }}
       ></div>
       <div className={styles['tab']}>
@@ -41,8 +43,8 @@ const MovieDetailPage = () => {
           </button>
         </div>
         <div className={styles['tab__contents']}>
-          {tab === 'Details' && <Info movie={data} />}
-          {tab === 'Review' && <div></div>}
+          {tab === 'Details' && <Info movie={movieData} />}
+          {tab === 'Review' && <Review reviews={reviewsData} />}
         </div>
       </div>
     </div>

@@ -4,12 +4,13 @@ import { useMovieSearchQuery } from '../../hooks/useMovieSearchQuery';
 import MovieCard from '../../common/components/MovieCard/MovieCard';
 import { useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
+import Loading from '../../common/components/Loading/Loading';
 
 const MoviesPage = () => {
   const [query, setQuery] = useSearchParams();
   const keyword = query.get('q');
 
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useMovieSearchQuery(keyword);
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useMovieSearchQuery(keyword);
   console.log('🚀 ~ MoviesPage ~ data:', data);
 
   const { ref, inView } = useInView();
@@ -19,6 +20,12 @@ const MoviesPage = () => {
       fetchNextPage();
     }
   }, [inView]);
+
+  console.log(isLoading, isFetchingNextPage);
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className={styles['container']}>
@@ -32,7 +39,9 @@ const MoviesPage = () => {
           ))
         )}
       </ul>
-      <div ref={ref} style={{ height: '30px' }}></div>
+      <div ref={ref} style={{ minHeight: '20px' }}>
+        <div className={styles['spinner']}></div>
+      </div>
     </div>
   );
 };

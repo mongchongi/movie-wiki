@@ -6,6 +6,8 @@ import { useState } from 'react';
 import Info from './components/Info/Info';
 import Review from './components/Review/Review';
 import { useMovieReviewsQuery } from '../../hooks/useMovieReviewsQuery';
+import { useMovieRecommendationsQuery } from '../../hooks/useMovieRecommendationsQuery';
+import MovieSlide from '../../common/components/MovieSlide/MovieSlide';
 
 const MovieDetailPage = () => {
   const [tab, setTab] = useState('Details');
@@ -14,8 +16,10 @@ const MovieDetailPage = () => {
 
   const { data: movieData, isLoading: movieLoading } = useMovieDetailQuery(id);
   const { data: reviewsData, isLoading: reviewLoading } = useMovieReviewsQuery(id);
+  const { data: recommendationData, isLoading: recommendationLoading } = useMovieRecommendationsQuery(id);
+  console.log('🚀 ~ MovieDetailPage ~ recommendationData:', recommendationData);
 
-  if (movieLoading || reviewLoading) {
+  if (movieLoading || reviewLoading || recommendationLoading) {
     return <Loading />;
   }
 
@@ -46,6 +50,9 @@ const MovieDetailPage = () => {
           {tab === 'Details' && <Info movie={movieData} />}
           {tab === 'Review' && <Review reviews={reviewsData} />}
         </div>
+      </div>
+      <div className={styles['recommendations']}>
+        <MovieSlide title='Recommendations' movies={recommendationData?.results} />
       </div>
     </div>
   );

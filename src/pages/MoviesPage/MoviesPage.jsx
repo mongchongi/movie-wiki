@@ -29,7 +29,6 @@ const MoviesPage = () => {
     currentSort,
     genre?.id
   );
-  console.log('🚀 ~ MoviesPage ~ data:', data);
 
   const { ref, inView } = useInView();
 

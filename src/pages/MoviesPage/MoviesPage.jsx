@@ -2,15 +2,33 @@ import styles from './MoviesPage.module.css';
 import { useSearchParams } from 'react-router';
 import { useMovieSearchQuery } from '../../hooks/useMovieSearchQuery';
 import MovieCard from '../../common/components/MovieCard/MovieCard';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useInView } from 'react-intersection-observer';
 import Loading from '../../common/components/Loading/Loading';
+import Dropdown from './components/Dropdown/Dropdown';
+import { useMovieGenreQuery } from '../../hooks/useMovieGenreQuery';
 
 const MoviesPage = () => {
+  const [currentSort, setCurrentSort] = useState('Sort by');
+  const [currentGenre, setCurrentGenre] = useState('Genre');
+
   const [query, setQuery] = useSearchParams();
   const keyword = query.get('q');
 
-  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useMovieSearchQuery(keyword);
+  const { data: genreData } = useMovieGenreQuery();
+
+  const sortData = [
+    { id: 1, name: 'popularity.desc' },
+    { id: 2, name: 'popularity.asc' },
+  ];
+
+  const genre = genreData?.find((item) => item.name === currentGenre);
+
+  const { data, isLoading, fetchNextPage, hasNextPage, isFetchingNextPage } = useMovieSearchQuery(
+    keyword,
+    currentSort,
+    genre?.id
+  );
   console.log('🚀 ~ MoviesPage ~ data:', data);
 
   const { ref, inView } = useInView();
@@ -21,15 +39,24 @@ const MoviesPage = () => {
     }
   }, [inView]);
 
-  console.log(isLoading, isFetchingNextPage);
-
   if (isLoading) {
     return <Loading />;
   }
 
   return (
     <div className={styles['movies-page']}>
-      <div className={styles['movies-page__filters']}>필터링 부분</div>
+      <div className={styles['movies-page__filters']}>
+        <Dropdown
+          currentOption={currentSort}
+          options={sortData}
+          onSelect={(e) => setCurrentSort(e.target.dataset.option)}
+        />
+        <Dropdown
+          currentOption={currentGenre}
+          options={genreData}
+          onSelect={(e) => setCurrentGenre(e.target.dataset.option)}
+        />
+      </div>
       <ul className={styles['movies-page__list']}>
         {data?.pages.map((page) =>
           page.data.results.map((item) => (
@@ -40,7 +67,7 @@ const MoviesPage = () => {
         )}
       </ul>
       <div ref={ref} style={{ minHeight: '20px' }}>
-        <div className={styles['movies-page__spinner']}></div>
+        {isFetchingNextPage && <div className={styles['movies-page__spinner']}></div>}
       </div>
     </div>
   );

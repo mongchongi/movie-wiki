@@ -1,3 +1,10 @@
+.movies-page__filters {
+  display: flex;
+  justify-content: end;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
 .movies-page__list {
   width: 100%;
   display: flex;

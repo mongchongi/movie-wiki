@@ -1,0 +1,31 @@
+.error {
+  background: rgb(220, 20, 60);
+  padding: 10px 15px;
+  border-radius: 10px;
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+}
+
+.error__message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: rgb(255, 255, 255);
+}
+
+.error__message > span {
+  padding-top: 3px;
+}
+
+.error__reset {
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  margin-left: 20px;
+}
+
+.error__reset:active {
+  color: rgb(255, 255, 255);
+}

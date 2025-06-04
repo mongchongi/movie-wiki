@@ -7,6 +7,8 @@ import MovieDetailPage from './pages/MovieDetailPage/MovieDetailPage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 import { Suspense } from 'react';
 import Loading from './common/components/Loading/Loading';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorFallback from './common/components/ErrorFallback/ErrorFallback';
 
 const App = () => (
   <div className={styles['container']}>
@@ -18,9 +20,11 @@ const App = () => (
           <Route
             path=':id'
             element={
-              <Suspense fallback={<Loading />}>
-                <MovieDetailPage />
-              </Suspense>
+              <ErrorBoundary FallbackComponent={ErrorFallback}>
+                <Suspense fallback={<Loading />}>
+                  <MovieDetailPage />
+                </Suspense>
+              </ErrorBoundary>
             }
           />
         </Route>

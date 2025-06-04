@@ -17,7 +17,6 @@ const MovieDetailPage = () => {
   const { data: movieData, isLoading: movieLoading } = useMovieDetailQuery(id);
   const { data: reviewsData, isLoading: reviewLoading } = useMovieReviewsQuery(id);
   const { data: recommendationData, isLoading: recommendationLoading } = useMovieRecommendationsQuery(id);
-  console.log('🚀 ~ MovieDetailPage ~ recommendationData:', recommendationData);
 
   if (movieLoading || reviewLoading || recommendationLoading) {
     return <Loading />;

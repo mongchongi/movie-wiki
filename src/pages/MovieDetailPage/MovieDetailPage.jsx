@@ -23,6 +23,7 @@ const MovieDetailPage = () => {
         className={styles['banner']}
         style={{
           backgroundImage: `url(https://media.themoviedb.org/t/p/w1066_and_h600_bestv2/${movieData?.backdrop_path})`,
+          backgroundColor: `${!movieData?.backdrop_path ? 'rgb(39, 39, 39)' : ''}`,
         }}
       ></div>
       <div className={styles['tab']}>

@@ -23,7 +23,10 @@ const MovieCard = ({ movie }) => {
   return (
     <div
       className={styles['movie-card']}
-      style={{ backgroundImage: `url(https://media.themoviedb.org/t/p/w300_and_h450_bestv2/${movie.poster_path})` }}
+      style={{
+        backgroundImage: `url(https://media.themoviedb.org/t/p/w300_and_h450_bestv2/${movie.poster_path})`,
+        backgroundColor: `${!movie.poster_path ? 'rgb(39, 39, 39)' : ''}`,
+      }}
     >
       <div className={styles['movie-card__info']}>
         <h4 className={styles['movie-card__title']}>{movie.title}</h4>

@@ -14,6 +14,7 @@ const Banner = () => {
       className={styles['banner']}
       style={{
         backgroundImage: `url(https://media.themoviedb.org/t/p/w1066_and_h600_bestv2/${data?.results[randomIndex].backdrop_path})`,
+        backgroundColor: `${!data?.results[randomIndex].backdrop_path ? 'rgb(39, 39, 39)' : ''}`,
       }}
     >
       <div className={styles['banner__info']}>

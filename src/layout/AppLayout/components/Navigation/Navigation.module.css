@@ -1,0 +1,28 @@
+.navigation {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 0 30px;
+  display: flex;
+  gap: 30px;
+}
+
+.navigation__link {
+  color: rgb(255, 255, 255);
+  text-decoration: none;
+}
+
+.navigation__link--active {
+  color: rgb(120, 199, 187);
+}
+
+@media all and (max-width: 576px) {
+  .navigation {
+    flex-direction: column;
+    margin: 20px;
+    gap: 30px;
+  }
+
+  .navigation__link {
+    font-size: 18px;
+  }
+}

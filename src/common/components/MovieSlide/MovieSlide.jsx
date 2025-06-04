@@ -20,7 +20,20 @@ const MovieSlide = ({ title, movies }) => {
           <FontAwesomeIcon icon={faChevronRight} size='lg' />
         </button>
       </div>
-      <Swiper spaceBetween={20} slidesPerView={5} loop={true} onSwiper={(e) => setSwiper(e)}>
+      <Swiper
+        spaceBetween={20}
+        slidesPerView={2}
+        loop={true}
+        onSwiper={(e) => setSwiper(e)}
+        breakpoints={{
+          768: {
+            slidesPerView: 3,
+          },
+          1200: {
+            slidesPerView: 5,
+          },
+        }}
+      >
         {movies?.map((item) => (
           <SwiperSlide key={item.id}>
             <MovieCard movie={item} />

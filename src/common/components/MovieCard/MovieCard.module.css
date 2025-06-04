@@ -74,3 +74,14 @@
 .movie-card__details-link > span {
   padding-top: 3px;
 }
+
+@media all and (max-width: 576px) {
+  .movie-card__info {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  .movie-card__title {
+    font-size: 16px;
+  }
+}

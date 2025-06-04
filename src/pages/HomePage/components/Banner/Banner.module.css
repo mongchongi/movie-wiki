@@ -1,5 +1,5 @@
 .banner {
-  height: 80vh;
+  height: 600px;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -63,4 +63,34 @@
   color: rgb(255, 255, 255);
   background: rgb(39, 39, 39);
   text-decoration: none;
+}
+
+@media all and (max-width: 768px) {
+  .banner {
+    height: 500px;
+  }
+
+  .banner__info {
+    width: calc(100% - 40px);
+  }
+
+  .banner__overview {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+  }
+
+  .banner__title {
+    font-size: 20px;
+  }
+
+  .banner__overview {
+    font-size: 14px;
+  }
+
+  .banner__button {
+    font-size: 12px;
+  }
 }

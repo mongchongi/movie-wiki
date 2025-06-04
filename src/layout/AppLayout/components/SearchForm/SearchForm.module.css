@@ -14,7 +14,7 @@
   transform: translateX(0);
 }
 
-.search__open-button {
+.search__button {
   border: none;
   background: transparent;
   color: rgb(255, 255, 255);
@@ -35,5 +35,20 @@
 }
 
 .search__input::placeholder {
-  color: rgb(255, 255, 255);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+@media all and (max-width: 576px) {
+  .search {
+    margin-top: 30px;
+    padding: 0 20px;
+  }
+
+  .search__wrap {
+    transform: translateX(0);
+  }
+
+  .search__input {
+    width: 100%;
+  }
 }

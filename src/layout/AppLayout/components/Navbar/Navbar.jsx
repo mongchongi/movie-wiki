@@ -1,14 +1,16 @@
-import { Link, useLocation } from 'react-router';
+import { Link } from 'react-router';
 import styles from './Navbar.module.css';
 import SearchForm from '../SearchForm/SearchForm';
-
-const paths = [
-  { name: 'Home', pathname: '/' },
-  { name: 'Movies', pathname: '/movies' },
-];
+import { useWindowSize } from '../../../../hooks/useWindowSize';
+import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect, useRef, useState } from 'react';
+import Navigation from '../Navigation/Navigation';
 
 const Navbar = () => {
-  const { pathname } = useLocation();
+  const [showMenu, setShowMenu] = useState(false);
+
+  const windowWidth = useWindowSize();
 
   return (
     <div className={styles['container']}>
@@ -18,19 +20,28 @@ const Navbar = () => {
             MOVIE WIKI
           </Link>
         </div>
-        <ul className={styles['nav__list']}>
-          {paths.map((item) => (
-            <li key={item.name} className={styles['nav__item']}>
-              <Link
-                to={item.pathname}
-                className={`${styles['nav__link']} ${item.pathname === pathname ? styles['nav__link--active'] : ''}`}
+        {windowWidth <= 576 ? (
+          <>
+            <button className={styles['nav__menu-button']} onClick={() => setShowMenu(true)}>
+              <FontAwesomeIcon icon={faBars} size='xl' />
+            </button>
+            <div className={`${styles['nav__menu']} ${showMenu ? styles['nav__menu--active'] : ''}`}>
+              <button
+                className={`${styles['nav__menu-button']} ${styles['nav__menu-button--close']}`}
+                onClick={() => setShowMenu(false)}
               >
-                {item.name}
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <SearchForm />
+                <FontAwesomeIcon icon={faXmark} size='xl' />
+              </button>
+              <Navigation setShowMenu={setShowMenu} />
+              <SearchForm />
+            </div>
+          </>
+        ) : (
+          <>
+            <Navigation />
+            <SearchForm />
+          </>
+        )}
       </nav>
     </div>
   );

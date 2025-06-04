@@ -3,10 +3,13 @@ import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router';
+import { useWindowSize } from '../../../../hooks/useWindowSize';
 
 const SearchForm = () => {
   const [showSearchForm, setShowSearchForm] = useState(false);
   const [keyword, setKeyword] = useState('');
+
+  const windowWidth = useWindowSize();
 
   const navigate = useNavigate();
 
@@ -54,9 +57,11 @@ const SearchForm = () => {
         ref={searchWrapRef}
         className={`${styles['search__wrap']} ${showSearchForm ? styles['search__wrap--toggle'] : ''}`}
       >
-        <button className={styles['search__open-button']} onClick={handleToggleSearchForm}>
-          <FontAwesomeIcon icon={faMagnifyingGlass} size='lg' />
-        </button>
+        {!(windowWidth <= 576) && (
+          <button className={styles['search__button']} onClick={handleToggleSearchForm}>
+            <FontAwesomeIcon icon={faMagnifyingGlass} size='lg' />
+          </button>
+        )}
         <form className={styles['search__form']} onSubmit={handleSearchForKeywords}>
           <input
             type='text'

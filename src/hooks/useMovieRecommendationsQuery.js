@@ -10,5 +10,6 @@ export const useMovieRecommendationsQuery = (movieId) => {
     queryKey: ['movie-recommendations', movieId],
     queryFn: () => fetchMovieRecommendations(movieId),
     select: (result) => result.data,
+    suspense: true,
   });
 };

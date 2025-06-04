@@ -1,7 +1,6 @@
 import styles from './MovieDetailPage.module.css';
 import { useParams } from 'react-router';
 import { useMovieDetailQuery } from '../../hooks/useMovieDetailQuery';
-import Loading from '../../common/components/Loading/Loading';
 import { useState } from 'react';
 import Info from './components/Info/Info';
 import Review from './components/Review/Review';
@@ -14,13 +13,9 @@ const MovieDetailPage = () => {
 
   const { id } = useParams();
 
-  const { data: movieData, isLoading: movieLoading } = useMovieDetailQuery(id);
-  const { data: reviewsData, isLoading: reviewLoading } = useMovieReviewsQuery(id);
-  const { data: recommendationData, isLoading: recommendationLoading } = useMovieRecommendationsQuery(id);
-
-  if (movieLoading || reviewLoading || recommendationLoading) {
-    return <Loading />;
-  }
+  const { data: movieData } = useMovieDetailQuery(id);
+  const { data: reviewsData } = useMovieReviewsQuery(id);
+  const { data: recommendationData } = useMovieRecommendationsQuery(id);
 
   return (
     <div>

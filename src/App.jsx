@@ -5,6 +5,8 @@ import HomePage from './pages/HomePage/HomePage';
 import MoviesPage from './pages/MoviesPage/MoviesPage';
 import MovieDetailPage from './pages/MovieDetailPage/MovieDetailPage';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
+import { Suspense } from 'react';
+import Loading from './common/components/Loading/Loading';
 
 const App = () => (
   <div className={styles['container']}>
@@ -13,7 +15,14 @@ const App = () => (
         <Route index element={<HomePage />} />
         <Route path='/movies'>
           <Route index element={<MoviesPage />} />
-          <Route path=':id' element={<MovieDetailPage />} />
+          <Route
+            path=':id'
+            element={
+              <Suspense fallback={<Loading />}>
+                <MovieDetailPage />
+              </Suspense>
+            }
+          />
         </Route>
       </Route>
       <Route path='*' element={<NotFoundPage />} />

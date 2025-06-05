@@ -29,3 +29,10 @@
 .error__reset:active {
   color: rgb(255, 255, 255);
 }
+
+@media all and (max-width: 576px) {
+  .error {
+    width: calc(100% - 30px);
+    right: 15px;
+  }
+}

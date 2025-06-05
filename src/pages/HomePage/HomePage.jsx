@@ -1,4 +1,4 @@
-import { Suspense } from 'react';
+import { Suspense, useState } from 'react';
 import styles from './HomePage.module.css';
 import Banner from './components/Banner/Banner';
 import PopularMovieSlide from './components/PopularMovieSlide/PopularMovieSlide';
@@ -7,8 +7,12 @@ import UpcomingMovieSlide from './components/UpcomingMovieSlide/UpcomingMovieSli
 import Loading from '../../common/components/Loading/Loading';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from '../../common/components/ErrorFallback/ErrorFallback';
+import ScrollToTop from '../../common/components/ScrollToTop/ScrollToTop';
+import { useWindowScrollY } from '../../hooks/useWindowScrollY';
 
 const HomePage = () => {
+  const scrollY = useWindowScrollY();
+
   return (
     <div className={styles['container']}>
       <ErrorBoundary FallbackComponent={ErrorFallback}>
@@ -19,6 +23,7 @@ const HomePage = () => {
           <UpcomingMovieSlide />
         </Suspense>
       </ErrorBoundary>
+      {scrollY > 50 && <ScrollToTop />}
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import styles from './MovieDetailPage.module.css';
 import { useParams } from 'react-router';
 import { useMovieDetailQuery } from '../../hooks/useMovieDetailQuery';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Info from './components/Info/Info';
 import Review from './components/Review/Review';
 import { useMovieReviewsQuery } from '../../hooks/useMovieReviewsQuery';
@@ -11,6 +11,8 @@ import { useMovieTrailersQuery } from '../../hooks/useMovieTrailersQuery';
 import VideoModal from '../../common/components/VideoModal/VideoModal';
 import { faPlay } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import ScrollToTop from '../../common/components/ScrollToTop/ScrollToTop';
+import { useWindowScrollY } from '../../hooks/useWindowScrollY';
 
 const MovieDetailPage = () => {
   const [tab, setTab] = useState('Details');
@@ -23,7 +25,16 @@ const MovieDetailPage = () => {
   const { data: recommendationData } = useMovieRecommendationsQuery(id);
   const { data: trailerData } = useMovieTrailersQuery(movieData?.id);
 
+  const scrollY = useWindowScrollY();
+
   const randomIndex = Math.floor(Math.random() * trailerData?.results.length);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, [id]);
 
   return (
     <div>
@@ -63,6 +74,7 @@ const MovieDetailPage = () => {
       <div className={styles['recommendations']}>
         <MovieSlide title='Recommendations' movies={recommendationData?.results} />
       </div>
+      {scrollY > 50 && <ScrollToTop />}
     </div>
   );
 };

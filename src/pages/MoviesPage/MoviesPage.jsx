@@ -7,10 +7,14 @@ import { useInView } from 'react-intersection-observer';
 import Loading from '../../common/components/Loading/Loading';
 import Dropdown from './components/Dropdown/Dropdown';
 import { useMovieGenreQuery } from '../../hooks/useMovieGenreQuery';
+import { useWindowScrollY } from '../../hooks/useWindowScrollY';
+import ScrollToTop from '../../common/components/ScrollToTop/ScrollToTop';
 
 const MoviesPage = () => {
   const [currentSort, setCurrentSort] = useState('Sort by');
   const [currentGenre, setCurrentGenre] = useState('Genre');
+
+  const scrollY = useWindowScrollY();
 
   const [query, setQuery] = useSearchParams();
   const keyword = query.get('q');
@@ -72,6 +76,7 @@ const MoviesPage = () => {
       <div ref={ref} style={{ minHeight: '20px' }}>
         {isFetchingNextPage && <div className={styles['movies-page__spinner']}></div>}
       </div>
+      {scrollY > 50 && <ScrollToTop />}
     </div>
   );
 };

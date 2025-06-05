@@ -7,25 +7,39 @@ import Review from './components/Review/Review';
 import { useMovieReviewsQuery } from '../../hooks/useMovieReviewsQuery';
 import { useMovieRecommendationsQuery } from '../../hooks/useMovieRecommendationsQuery';
 import MovieSlide from '../../common/components/MovieSlide/MovieSlide';
+import { useMovieTrailersQuery } from '../../hooks/useMovieTrailersQuery';
+import VideoModal from '../../common/components/VideoModal/VideoModal';
+import { faPlay } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const MovieDetailPage = () => {
   const [tab, setTab] = useState('Details');
+  const [showVideo, setShowVideo] = useState(false);
 
   const { id } = useParams();
 
   const { data: movieData } = useMovieDetailQuery(id);
   const { data: reviewsData } = useMovieReviewsQuery(id);
   const { data: recommendationData } = useMovieRecommendationsQuery(id);
+  const { data: trailerData } = useMovieTrailersQuery(movieData?.id);
+
+  const randomIndex = Math.floor(Math.random() * trailerData?.results.length);
 
   return (
     <div>
+      {showVideo && <VideoModal videoKey={trailerData.results[randomIndex].key} setShowVideo={setShowVideo} />}
       <div
         className={styles['banner']}
         style={{
           backgroundImage: `url(https://media.themoviedb.org/t/p/w1066_and_h600_bestv2/${movieData?.backdrop_path})`,
           backgroundColor: `${!movieData?.backdrop_path ? 'rgb(39, 39, 39)' : ''}`,
         }}
-      ></div>
+      >
+        <button onClick={() => setShowVideo(true)} className={styles['banner__trailer']}>
+          <FontAwesomeIcon icon={faPlay} />
+          <span>Watch trailer</span>
+        </button>
+      </div>
       <div className={styles['tab']}>
         <div className={styles['tab__buttons']}>
           <button

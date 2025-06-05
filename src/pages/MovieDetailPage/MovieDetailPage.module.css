@@ -4,6 +4,26 @@
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 10px;
+  padding: 1px;
+}
+
+.banner__trailer {
+  border: none;
+  border-radius: 50px;
+  padding: 10px 20px;
+  display: flex;
+  gap: 10px;
+  text-align: center;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.banner__trailer:hover {
+  opacity: 0.8;
+}
+
+.banner__trailer > span {
+  padding-top: 1px;
 }
 
 .tab__buttons {

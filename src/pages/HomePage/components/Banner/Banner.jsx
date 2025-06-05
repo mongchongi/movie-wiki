@@ -18,7 +18,12 @@ const Banner = () => {
 
   return (
     <>
-      {showVideo && <VideoModal videoKey={trailerData.results[randomIndex].key} setShowVideo={setShowVideo} />}
+      {showVideo && (
+        <VideoModal
+          videoKey={trailerData?.results.length === 0 ? '' : trailerData?.results[randomIndex].key}
+          setShowVideo={setShowVideo}
+        />
+      )}
       <div
         className={styles['banner']}
         style={{

@@ -8,7 +8,7 @@ const MovieCard = ({ movie }) => {
   const { data: genreData } = useMovieGenreQuery();
 
   const showGenre = (genreIds) => {
-    if (!genreData) {
+    if (!Array.isArray(genreIds) || !genreData) {
       return [];
     }
 
@@ -40,11 +40,11 @@ const MovieCard = ({ movie }) => {
         <div className={styles['movie-card__stats']}>
           <div className={styles['movie-card__average']}>
             <FontAwesomeIcon icon={faFire} />
-            <span>{movie.vote_average.toFixed(1)}</span>
+            <span>{!movie.vote_average ? '0' : movie.vote_average.toFixed(1)}</span>
           </div>
           <div className={styles['movie-card__popularity']}>
             <FontAwesomeIcon icon={faUsers} />
-            <span>{movie.popularity}</span>
+            <span>{!movie.popularity ? '0' : movie.popularity}</span>
           </div>
           <div
             className={styles['movie-card__adult']}

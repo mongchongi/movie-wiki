@@ -24,6 +24,7 @@ const MovieDetailPage = () => {
   const { data: reviewsData } = useMovieReviewsQuery(id);
   const { data: recommendationData } = useMovieRecommendationsQuery(id);
   const { data: trailerData } = useMovieTrailersQuery(movieData?.id);
+  console.log('🚀 ~ MovieDetailPage ~ trailerData:', trailerData?.results.length);
 
   const scrollY = useWindowScrollY();
 
@@ -38,7 +39,12 @@ const MovieDetailPage = () => {
 
   return (
     <div>
-      {showVideo && <VideoModal videoKey={trailerData.results[randomIndex].key} setShowVideo={setShowVideo} />}
+      {showVideo && (
+        <VideoModal
+          videoKey={trailerData?.results.length === 0 ? '' : trailerData?.results[randomIndex].key}
+          setShowVideo={setShowVideo}
+        />
+      )}
       <div
         className={styles['banner']}
         style={{

@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useWindowSize } from '../../../hooks/useWindowSize';
 
 const VideoModal = ({ videoKey, setShowVideo }) => {
-  console.log('🚀 ~ VideoModal ~ videoKey:', videoKey);
   const windowWidth = useWindowSize();
 
   return (

@@ -1,0 +1,146 @@
+.nav {
+  padding: 0 16px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  background: rgba(0, 0, 0, 1);
+}
+
+.nav__header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+}
+
+.nav__logo img {
+  width: 80px;
+}
+
+.nav__navigation {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+}
+
+.nav__navigation-item a {
+  color: rgba(173, 173, 173, 1);
+}
+
+.nav__navigation-item a:visited {
+  color: rgba(173, 173, 173, 1);
+}
+
+.nav__navigation-item a:hover {
+  color: rgba(255, 255, 255, 1);
+}
+
+.nav__controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-left: auto;
+}
+
+.nav__search-overlay {
+  overflow: hidden;
+}
+
+.nav__search {
+  display: flex;
+  gap: 4px;
+  transform: translateX(170px);
+  overflow: hidden;
+  transition: all 0s;
+}
+
+.nav__search--show {
+  transform: translateX(0);
+  transition: all 0.5s;
+}
+
+.nav__search-toggler {
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 1);
+  padding: 0;
+  cursor: pointer;
+}
+
+.nav__search-input {
+  border: none;
+  outline: none;
+  padding: 0 5px;
+}
+
+.nav__menu-toggler {
+  width: 25px;
+  height: 25px;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.nav__menu-toggler div {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 1);
+}
+
+.main {
+  margin-top: 64px;
+}
+
+@media all and (max-width: 627px) {
+  .nav__navigation-overlay {
+    overflow: hidden;
+    height: 0;
+  }
+
+  .nav__navigation-overlay--open {
+    height: auto;
+  }
+
+  .nav__navigation {
+    flex-direction: column;
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    visibility: hidden;
+    opacity: 0;
+    transform: translateY(-87px);
+    transition: all 0.5s;
+  }
+
+  .nav__navigation--show {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .nav__search {
+    transform: translateX(148px);
+  }
+
+  .nav__search--show {
+    transform: translateX(0);
+  }
+
+  .nav__search-input {
+    width: 140px;
+  }
+
+  .nav__menu-toggler {
+    display: flex;
+    cursor: pointer;
+  }
+}

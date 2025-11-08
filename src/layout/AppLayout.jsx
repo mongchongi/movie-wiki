@@ -119,6 +119,7 @@ const AppLayout = () => {
       <main className={styles['main']}>
         <Outlet />
       </main>
+      <footer className={styles['footer']}>footer</footer>
     </>
   );
 };

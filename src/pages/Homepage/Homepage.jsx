@@ -1,11 +1,13 @@
 import Banner from './components/Banner/Banner';
+import MoviesSlide from './components/MovieSlide/MovieSlide';
 
 const Homepage = () => {
   return (
     <>
-      <section>
-        <Banner />
-      </section>
+      <Banner />
+      <MoviesSlide title='POPULAR' type='popular' />
+      <MoviesSlide title='TOP RATED' type='top_rated' />
+      <MoviesSlide title='UPCOMING' type='upcoming' />
     </>
   );
 };

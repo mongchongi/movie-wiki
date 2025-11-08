@@ -99,6 +99,11 @@
 
 .main {
   margin-top: 64px;
+  padding: 0 16px;
+}
+
+.footer {
+  margin-top: 64px;
 }
 
 @media all and (max-width: 627px) {
@@ -117,15 +122,11 @@
     background: rgba(0, 0, 0, 1);
     margin: 0;
     padding: 0 16px 10px;
-    visibility: hidden;
-    opacity: 0;
     transform: translateY(-87px);
     transition: all 0.5s;
   }
 
   .nav__menu--show {
-    visibility: visible;
-    opacity: 1;
     transform: translateY(0);
   }
 

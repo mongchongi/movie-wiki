@@ -24,6 +24,11 @@
   bottom: 16px;
 }
 
+.banner__title {
+  font-size: 64px;
+  margin-bottom: 16px;
+}
+
 .banner__overview {
   display: -webkit-box;
   -webkit-box-orient: vertical;
@@ -56,7 +61,17 @@
   margin-left: 3px;
 }
 
+@media all and (max-width: 800px) {
+  .banner__title {
+    font-size: 48px;
+  }
+}
+
 @media all and (max-width: 627px) {
+  .banner__title {
+    font-size: 32px;
+  }
+
   .banner__content {
     width: calc(100% - 32px);
   }

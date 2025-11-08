@@ -1,7 +1,8 @@
 import { Link, Outlet, useLocation } from 'react-router';
 import styles from './AppLayout.module.css';
 import { useEffect, useRef, useState } from 'react';
-import magnifyingGlass from '../assets/magnifying-glass.svg';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 const pages = [
   {
@@ -21,7 +22,7 @@ const AppLayout = () => {
 
   const { pathname } = useLocation();
 
-  const navNavigationRef = useRef(null);
+  const navMenuRef = useRef(null);
 
   const handleShowSearchInput = () => {
     setShowSearchInput((prevShowSearchInput) => !prevShowSearchInput);
@@ -57,12 +58,12 @@ const AppLayout = () => {
             </Link>
           </div>
           {windowWidth > 627 && (
-            <ul className={styles['nav__navigation']}>
+            <ul className={styles['nav__menu']}>
               {pages.map((page) => (
-                <li className={styles['nav__navigation-item']} key={page.name}>
+                <li className={styles['nav__menu-item']} key={page.name}>
                   <Link
                     to={page.path}
-                    style={{ color: `${pathname === page.path ? 'rgba(255,255,255, 1)' : ''}` }}
+                    style={{ color: `${pathname === page.path ? 'rgba(179, 87, 96, 1)' : ''}` }}
                     onClick={handleShowMenu}
                   >
                     {page.name}
@@ -78,7 +79,7 @@ const AppLayout = () => {
                 onSubmit={handleSearch}
               >
                 <button type='button' className={styles['nav__search-toggler']} onClick={handleShowSearchInput}>
-                  <img src={magnifyingGlass} alt='magnifying glass icon' />
+                  <FontAwesomeIcon icon={faMagnifyingGlass} size='xl' />
                 </button>
                 <input
                   className={`${styles['nav__search-input']} ${
@@ -98,20 +99,13 @@ const AppLayout = () => {
           </div>
         </div>
         {windowWidth <= 627 && (
-          <div
-            className={`${styles['nav__navigation-overlay']} ${
-              showMenu ? styles['nav__navigation-overlay--open'] : ''
-            }`}
-          >
-            <ul
-              className={`${styles['nav__navigation']} ${showMenu ? styles['nav__navigation--show'] : ''}`}
-              ref={navNavigationRef}
-            >
+          <div className={`${styles['nav__menu-overlay']} ${showMenu ? styles['nav__menu-overlay--open'] : ''}`}>
+            <ul className={`${styles['nav__menu']} ${showMenu ? styles['nav__menu--show'] : ''}`} ref={navMenuRef}>
               {pages.map((page) => (
-                <li className={styles['nav__navigation-item']} key={page.name}>
+                <li className={styles['nav__menu-item']} key={page.name}>
                   <Link
                     to={page.path}
-                    style={{ color: `${pathname === page.path ? 'rgba(255,255,255, 1)' : ''}` }}
+                    style={{ color: `${pathname === page.path ? 'rgba(179, 87, 96, 1)' : ''}` }}
                     onClick={handleShowMenu}
                   >
                     {page.name}

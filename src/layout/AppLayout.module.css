@@ -1,39 +1,39 @@
 .nav {
-  padding: 0 16px;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1;
-  background: rgba(0, 0, 0, 1);
 }
 
 .nav__header {
   height: 64px;
   display: flex;
   align-items: center;
+  background: rgba(0, 0, 0, 1);
+  padding: 0 16px;
 }
 
 .nav__logo img {
   width: 80px;
 }
 
-.nav__navigation {
+.nav__menu {
   list-style: none;
   display: flex;
   gap: 24px;
 }
 
-.nav__navigation-item a {
-  color: rgba(173, 173, 173, 1);
-}
-
-.nav__navigation-item a:visited {
-  color: rgba(173, 173, 173, 1);
-}
-
-.nav__navigation-item a:hover {
+.nav__menu-item a {
   color: rgba(255, 255, 255, 1);
+}
+
+.nav__menu-item a:visited {
+  color: rgba(255, 255, 255, 1);
+}
+
+.nav__menu-item a:hover {
+  color: rgba(179, 87, 96, 1);
 }
 
 .nav__controls {
@@ -72,6 +72,7 @@
 
 .nav__search-input {
   border: none;
+  border-radius: 5px;
   outline: none;
   padding: 0 5px;
 }
@@ -101,27 +102,28 @@
 }
 
 @media all and (max-width: 627px) {
-  .nav__navigation-overlay {
+  .nav__menu-overlay {
     overflow: hidden;
     height: 0;
   }
 
-  .nav__navigation-overlay--open {
+  .nav__menu-overlay--open {
     height: auto;
   }
 
-  .nav__navigation {
+  .nav__menu {
     flex-direction: column;
     gap: 16px;
+    background: rgba(0, 0, 0, 1);
     margin: 0;
-    padding: 0;
+    padding: 0 16px 10px;
     visibility: hidden;
     opacity: 0;
     transform: translateY(-87px);
     transition: all 0.5s;
   }
 
-  .nav__navigation--show {
+  .nav__menu--show {
     visibility: visible;
     opacity: 1;
     transform: translateY(0);

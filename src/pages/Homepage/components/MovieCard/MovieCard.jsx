@@ -1,12 +1,50 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './MovieCard.module.css';
 import { faStarHalfStroke, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router';
+import { useEffect, useRef, useState } from 'react';
 
 const MovieCard = ({ movie }) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  const navigate = useNavigate();
+
+  const movieCardRef = useRef(null);
+
+  const handleViewDetails = (e, movieId) => {
+    const isMobile = window.innerWidth <= 627;
+
+    if (isMobile) {
+      if (!isHovered) {
+        e.preventDefault();
+        setIsHovered(true);
+      } else {
+        setIsHovered(false);
+        navigate(`/movies/${movieId}`);
+      }
+    }
+  };
+
+  useEffect(() => {
+    const handleOutsideClick = (e) => {
+      if (isHovered && movieCardRef.current && !movieCardRef.current.contains(e.target)) {
+        setIsHovered(false);
+      }
+    };
+
+    window.addEventListener('click', handleOutsideClick);
+
+    return () => {
+      window.removeEventListener('click', handleOutsideClick);
+    };
+  }, [isHovered]);
+
   return (
     <div
       className={styles['movie-card']}
       style={{ backgroundImage: `url(https://media.themoviedb.org/t/p/w600_and_h900_bestv2/${movie.poster_path})` }}
+      ref={movieCardRef}
+      onClick={(e) => handleViewDetails(e, movie.id)}
     >
       <div className={styles['movie-card__info']}>
         <span className={`${styles['movie-card__adult']} ${movie.adult ? '' : styles['movie-card__adult--all']}`}>

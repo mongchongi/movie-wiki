@@ -28,25 +28,34 @@ const AppLayout = () => {
     setShowSearchInput((prevShowSearchInput) => !prevShowSearchInput);
   };
 
-  const handleShowMenu = () => {
-    setShowMenu((prevShowMenu) => !prevShowMenu);
+  const handleShowMenu = (e) => {
+    e.stopPropagation();
+    setShowMenu(!showMenu);
   };
 
   const handleSearch = (e) => {
     e.preventDefault();
   };
 
-  const handleResize = () => {
-    setWindowWidth(window.innerWidth);
-  };
-
   useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    const handleClickOutside = (e) => {
+      if (showMenu && navMenuRef.current && !navMenuRef.current.contains(e.target)) {
+        setShowMenu(false);
+      }
+    };
+
     window.addEventListener('resize', handleResize);
+    window.addEventListener('click', handleClickOutside);
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('click', handleClickOutside);
     };
-  }, []);
+  }, [showMenu]);
 
   return (
     <>
@@ -99,21 +108,19 @@ const AppLayout = () => {
           </div>
         </div>
         {windowWidth <= 627 && (
-          <div className={`${styles['nav__menu-overlay']} ${showMenu ? styles['nav__menu-overlay--open'] : ''}`}>
-            <ul className={`${styles['nav__menu']} ${showMenu ? styles['nav__menu--show'] : ''}`} ref={navMenuRef}>
-              {pages.map((page) => (
-                <li className={styles['nav__menu-item']} key={page.name}>
-                  <Link
-                    to={page.path}
-                    style={{ color: `${pathname === page.path ? 'rgba(179, 87, 96, 1)' : ''}` }}
-                    onClick={handleShowMenu}
-                  >
-                    {page.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+          <ul className={`${styles['nav__menu']} ${showMenu ? styles['nav__menu--show'] : ''}`} ref={navMenuRef}>
+            {pages.map((page) => (
+              <li className={styles['nav__menu-item']} key={page.name}>
+                <Link
+                  to={page.path}
+                  style={{ color: `${pathname === page.path ? 'rgba(179, 87, 96, 1)' : ''}` }}
+                  onClick={handleShowMenu}
+                >
+                  {page.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
         )}
       </nav>
       <main className={styles['main']}>

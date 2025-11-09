@@ -10,5 +10,6 @@ export const useMoviesQuery = (type) => {
     queryKey: ['movies', type],
     queryFn: () => getMovies(type),
     select: (result) => result.data,
+    suspense: true,
   });
 };

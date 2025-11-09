@@ -52,12 +52,11 @@
   gap: 4px;
   transform: translateX(170px);
   overflow: hidden;
-  transition: all 0s;
+  transition: all 0.5s;
 }
 
 .nav__search--show {
   transform: translateX(0);
-  transition: all 0.5s;
 }
 
 .nav__search-toggler {
@@ -107,27 +106,23 @@
 }
 
 @media all and (max-width: 627px) {
-  .nav__menu-overlay {
-    overflow: hidden;
-    height: 0;
-  }
-
-  .nav__menu-overlay--open {
-    height: auto;
-  }
-
   .nav__menu {
     flex-direction: column;
-    gap: 16px;
-    background: rgba(0, 0, 0, 1);
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60%;
     margin: 0;
-    padding: 0 16px 10px;
-    transform: translateY(-87px);
+    padding: 24px;
+    background: rgba(0, 0, 0, 1);
+    box-shadow: -16px 0px 20px 0px rgba(0, 0, 0, 1);
+    transform: translateX(392px);
     transition: all 0.5s;
   }
 
   .nav__menu--show {
-    transform: translateY(0);
+    transform: translateX(0);
   }
 
   .nav__search {

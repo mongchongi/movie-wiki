@@ -61,7 +61,6 @@
 .banner__detail-button span {
   font-size: 18px;
   margin-left: 3px;
-  vertical-align: middle;
 }
 
 @media all and (max-width: 800px) {

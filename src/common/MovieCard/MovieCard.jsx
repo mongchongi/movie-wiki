@@ -2,8 +2,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import styles from './MovieCard.module.css';
 import { faStarHalfStroke, faUsers } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router';
+import { useMovieGenreQuery } from '../../hooks/useMovieGenreQuery';
 
 const MovieCard = ({ movie }) => {
+  const { data: genreData } = useMovieGenreQuery();
+
+  const showGenre = (genreIds) => {
+    if (!genreData) {
+      return [];
+    }
+
+    const genres = genreIds.map((id) => genreData.find((genre) => genre.id === id));
+
+    return genres;
+  };
+
   return (
     <div
       className={styles['movie-card']}
@@ -15,9 +28,9 @@ const MovieCard = ({ movie }) => {
             {movie.adult ? '+19' : 'ALL'}
           </span>
           <div className={styles['movie-card__genre-list']}>
-            {movie.genre_ids.map((genreId) => (
-              <div className={styles['movie-card__genre-item']} key={genreId}>
-                {genreId}
+            {showGenre(movie.genre_ids).map((genre) => (
+              <div className={styles['movie-card__genre-item']} key={genre.id}>
+                {genre.name}
               </div>
             ))}
           </div>

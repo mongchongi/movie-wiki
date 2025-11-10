@@ -58,7 +58,8 @@
 
 .movie-card__genre-list {
   display: flex;
-  gap: 8px;
+  flex-wrap: wrap;
+  gap: 12px;
   font-size: 14px;
 }
 

@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import Banner from './components/Banner/Banner';
-import MoviesSlide from './components/MovieSlide/MovieSlide';
+import MoviesSlide from '../../common/MovieSlide/MovieSlide';
 import LoadingSpinner from '../../common/LoadingSpinner/LoadingSpinner';
 
 const Homepage = () => {

@@ -39,6 +39,7 @@
 
 .movie-card__info:hover {
   opacity: 1;
+  color: rgb(181, 181, 181);
 }
 
 .movie-card__adult {

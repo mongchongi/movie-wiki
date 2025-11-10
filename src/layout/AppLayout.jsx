@@ -2,7 +2,9 @@ import { Link, Outlet, useLocation, useNavigate } from 'react-router';
 import styles from './AppLayout.module.css';
 import { useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faArrowUp, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faCopyright } from '@fortawesome/free-regular-svg-icons';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
 
 const pages = [
   {
@@ -20,6 +22,7 @@ const AppLayout = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [keyword, setKeyword] = useState('');
+  const [isScrollStart, setIsScrollStart] = useState(window.scrollY > 0);
 
   const { pathname } = useLocation();
 
@@ -62,6 +65,22 @@ const AppLayout = () => {
       window.removeEventListener('click', handleClickOutside);
     };
   }, [showMenu]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setIsScrollStart(true);
+      } else {
+        setIsScrollStart(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <>
@@ -134,7 +153,24 @@ const AppLayout = () => {
       <main className={styles['main']}>
         <Outlet />
       </main>
-      <footer className={styles['footer']}>footer</footer>
+      <footer className={styles['footer']}>
+        <div>
+          <FontAwesomeIcon icon={faCopyright} />
+          <span>2025 Movie Wiki. All Rights Reserved.</span>
+        </div>
+        <div>
+          <Link to={'https://github.com/mongchongi/movie-wiki'} target='_blank'>
+            <FontAwesomeIcon icon={faGithub} size='xl' />
+          </Link>
+        </div>
+      </footer>
+      <button
+        type='button'
+        className={`${styles['scroll-top']} ${isScrollStart ? styles['scroll-top--visible'] : ''}`}
+        onClick={() => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })}
+      >
+        <FontAwesomeIcon icon={faArrowUp} />
+      </button>
     </>
   );
 };

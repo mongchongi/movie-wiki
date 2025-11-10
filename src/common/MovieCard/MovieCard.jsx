@@ -17,11 +17,12 @@ const MovieCard = ({ movie }) => {
     return genres;
   };
 
+  const backgroundUrl = movie.poster_path
+    ? `url(https://media.themoviedb.org/t/p/w600_and_h900_bestv2/${movie.poster_path})`
+    : `url(https://t4.ftcdn.net/jpg/07/91/22/59/360_F_791225927_caRPPH99D6D1iFonkCRmCGzkJPf36QDw.jpg)`;
+
   return (
-    <div
-      className={styles['movie-card']}
-      style={{ backgroundImage: `url(https://media.themoviedb.org/t/p/w600_and_h900_bestv2/${movie.poster_path})` }}
-    >
+    <div className={styles['movie-card']} style={{ backgroundImage: backgroundUrl }}>
       <Link to={`/movies/${movie.id}`}>
         <div className={styles['movie-card__info']}>
           <span className={`${styles['movie-card__adult']} ${movie.adult ? '' : styles['movie-card__adult--all']}`}>

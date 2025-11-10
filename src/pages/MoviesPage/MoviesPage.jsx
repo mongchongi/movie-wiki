@@ -1,29 +1,43 @@
+import { Suspense, useEffect } from 'react';
 import { useSearchParams } from 'react-router';
 import { useSearchMovieQuery } from '../../hooks/useSearchMovie';
 import styles from './MoviesPage.module.css';
 import MovieCard from '../../common/MovieCard/MovieCard';
+import LoadingSpinner from '../../common/LoadingSpinner/LoadingSpinner';
+import { useInView } from 'react-intersection-observer';
 
 const MoviesPage = () => {
   const [query, setQuery] = useSearchParams();
   const keyword = query.get('q');
 
-  const { data } = useSearchMovieQuery(keyword);
-  console.log('🚀 ~ MoviesPage ~ data:', data);
+  const { ref, inView } = useInView();
+
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useSearchMovieQuery(keyword);
+
+  useEffect(() => {
+    if (inView && hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  }, [inView]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
-    <>
-      <section>
-        <div></div>
-        <div></div>
-      </section>
+    <Suspense fallback={<LoadingSpinner />}>
       <section>
         <div className={styles['movie-list']}>
-          {data?.results.map((movie) => (
-            <MovieCard movie={movie} />
+          {data?.movies.map((movie) => (
+            <MovieCard key={movie.id} movie={movie} />
           ))}
         </div>
+        {isFetchingNextPage && (
+          <p style={{ textAlign: 'center', fontWeight: 'bold', color: 'rgba(179, 87, 96, 1)' }}>LOADING...</p>
+        )}
+        <div ref={ref}></div>
       </section>
-    </>
+    </Suspense>
   );
 };
 

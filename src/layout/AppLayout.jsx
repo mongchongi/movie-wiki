@@ -1,4 +1,4 @@
-import { Link, Outlet, useLocation } from 'react-router';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router';
 import styles from './AppLayout.module.css';
 import { useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,10 +19,13 @@ const AppLayout = () => {
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [keyword, setKeyword] = useState('');
 
   const { pathname } = useLocation();
 
   const navMenuRef = useRef(null);
+
+  const navigate = useNavigate();
 
   const handleShowSearchInput = () => {
     setShowSearchInput((prevShowSearchInput) => !prevShowSearchInput);
@@ -35,6 +38,9 @@ const AppLayout = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
+    navigate(`/movies?q=${keyword}`);
+
+    setKeyword('');
   };
 
   useEffect(() => {
@@ -96,6 +102,8 @@ const AppLayout = () => {
                   }`}
                   type='text'
                   placeholder='Search...'
+                  value={keyword}
+                  onChange={(e) => setKeyword(e.target.value)}
                 />
                 <button type='submit' hidden></button>
               </form>

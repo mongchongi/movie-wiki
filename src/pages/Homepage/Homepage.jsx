@@ -1,6 +1,6 @@
-import { useEffect } from 'react';
 import Banner from './components/Banner/Banner';
 import MoviesSlide from '../../common/MovieSlide/MovieSlide';
+import { useEffect } from 'react';
 
 const Homepage = () => {
   useEffect(() => {

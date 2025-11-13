@@ -9,7 +9,7 @@ import ReviewItem from './components/ReviewItem/ReviewItem';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { useMovieVideosQuery } from '../../hooks/useMovieVideosQuery';
 import YouTube from 'react-youtube';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const MovieDetailPage = () => {
   const [showTrailer, setShowTrailer] = useState(false);
@@ -40,6 +40,10 @@ const MovieDetailPage = () => {
     setRandomIndex(Math.floor(Math.random() * movieVideoData?.results.length));
     setShowTrailer(!showTrailer);
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <>

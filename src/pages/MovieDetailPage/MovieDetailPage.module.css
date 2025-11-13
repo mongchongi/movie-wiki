@@ -93,11 +93,11 @@
 }
 
 .movie-detail__trailer-button {
-  padding: 5px 8px;
   border: none;
   background: rgba(255, 255, 255, 1);
   color: rgba(0, 0, 0, 1);
   border-radius: 5px;
+  padding: 8px 12px;
   margin: 16px 0;
   cursor: pointer;
 }

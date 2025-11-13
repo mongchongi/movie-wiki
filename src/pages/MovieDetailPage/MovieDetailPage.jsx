@@ -67,11 +67,11 @@ const MovieDetailPage = () => {
       </section>
       <section>
         <h2 style={{ color: 'rgba(179, 87, 96, 1)', marginTop: '48px' }}>Main Cast</h2>
-        <ul className={styles['movie-detail__cast-list']}>
+        <ul className={styles['movie-cast']}>
           {movieCreditData?.cast.map((castMember) => (
-            <li key={castMember.id} className={styles['movie-detail__cast-item']}>
+            <li key={castMember.id} className={styles['movie-cast__item']}>
               <img
-                className={styles['movie-detail__cast-profile']}
+                className={styles['movie-cast__profile']}
                 src={
                   castMember.profile_path
                     ? `https://media.themoviedb.org/t/p/w276_and_h350_face/${castMember.profile_path}`
@@ -79,14 +79,14 @@ const MovieDetailPage = () => {
                 }
                 alt={`${castMember.name} profile`}
               />
-              <h4 className={styles['movie-detail__cast-name']}>{castMember.name}</h4>
+              <h4 className={styles['movie-cast__name']}>{castMember.name}</h4>
             </li>
           ))}
         </ul>
       </section>
       <section>
         <h2 style={{ color: 'rgba(179, 87, 96, 1)', marginTop: '48px' }}>Reviews</h2>
-        <ul className={styles['movie-detail__review-list']}>
+        <ul className={styles['movie-review']}>
           {movieReviewData?.results.length ? (
             movieReviewData?.results.map((review) => <ReviewItem key={review.id} review={review} />)
           ) : (

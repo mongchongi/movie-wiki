@@ -17,6 +17,7 @@
   left: 0;
   width: 100%;
   height: 100%;
+  border-radius: 5px;
   background-image: var(--backdrop-url);
   background-size: cover;
   background-position: center;
@@ -69,7 +70,7 @@
   margin-left: 5px;
 }
 
-.movie-detail__cast-list {
+.movie-cast {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -83,32 +84,32 @@
   touch-action: pan-x;
 }
 
-.movie-detail__cast-list::-webkit-scrollbar {
+.movie-cast::-webkit-scrollbar {
   background: transparent;
   height: 8px;
 }
 
-.movie-detail__cast-list::-webkit-scrollbar-thumb {
+.movie-cast::-webkit-scrollbar-thumb {
   background: rgba(179, 87, 96, 0.5);
   border-radius: 3px;
 }
 
-.movie-detail__cast-list::-webkit-scrollbar-button {
+.movie-cast::-webkit-scrollbar-button {
   display: none;
 }
 
-.movie-detail__cast-profile {
+.movie-cast__profile {
   width: 150px;
   height: 200px;
   border-radius: 5px;
   display: block;
 }
 
-.movie-detail__cast-name {
+.movie-cast__name {
   margin-bottom: 0;
 }
 
-.movie-detail__review-list {
+.movie-review {
   list-style: none;
   padding: 0;
   margin: 0;

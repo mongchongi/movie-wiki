@@ -6,8 +6,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useMovieCreditsQuery } from '../../hooks/useMovieCreditsQuery';
 import { useMovieReviewsQuery } from '../../hooks/useMovieReviewsQuery';
 import ReviewItem from './components/ReviewItem/ReviewItem';
+import { faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { useMovieVideosQuery } from '../../hooks/useMovieVideosQuery';
+import YouTube from 'react-youtube';
+import { useState } from 'react';
 
 const MovieDetailPage = () => {
+  const [showTrailer, setShowTrailer] = useState(false);
+  const [randomIndex, setRandomIndex] = useState(0);
+
   const { id } = useParams();
 
   const { data: movieData } = useMovieDetailQuery(id);
@@ -15,6 +22,8 @@ const MovieDetailPage = () => {
   const { data: movieCreditData } = useMovieCreditsQuery(id);
 
   const { data: movieReviewData } = useMovieReviewsQuery(id);
+
+  const { data: movieVideoData } = useMovieVideosQuery(id);
 
   const backdropUrl = {
     '--backdrop-url': `url(https://media.themoviedb.org/t/p/w1066_and_h600_bestv2/${movieData?.backdrop_path})`,
@@ -27,8 +36,32 @@ const MovieDetailPage = () => {
 
   const budget = movieData?.budget.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
+  const handleShowTrailer = () => {
+    setRandomIndex(Math.floor(Math.random() * movieVideoData?.results.length));
+    setShowTrailer(!showTrailer);
+  };
+
   return (
     <>
+      {showTrailer && (
+        <div className={styles['trailer-modal']} onClick={handleShowTrailer}>
+          <YouTube
+            videoId={movieVideoData?.results[randomIndex].key}
+            opts={{
+              width: '100%',
+              height: '100%',
+              playerVars: {
+                autoplay: 1,
+                rel: 0,
+                modestbranding: 1,
+              },
+            }}
+            onEnd={(e) => {
+              e.target.stopVideo(0);
+            }}
+          />
+        </div>
+      )}
       <section>
         <div className={styles['movie-detail']}>
           <div className={styles['movie-detail__backdrop']} style={backdropUrl}>
@@ -48,19 +81,23 @@ const MovieDetailPage = () => {
               </ul>
               <p className={styles['movie-detail__overview']}>{movieData?.overview}</p>
               <div className={styles['movie-detail__stats']}>
-                <p className={styles['movie-card__vote_average']}>
+                <p>
                   <FontAwesomeIcon icon={faStarHalfStroke} color='rgba(255, 193, 7, 1)' />
                   <span>{movieData?.vote_average.toFixed(1)}</span>
                 </p>
-                <p className={styles['movie-card__popularity']}>
+                <p>
                   <FontAwesomeIcon icon={faUsers} color='rgba(64, 224, 208, 1)' />
                   <span>{movieData?.popularity}</span>
                 </p>
-                <p className={styles['movie-card__budget']}>
+                <p>
                   <FontAwesomeIcon icon={faMoneyBillWave} color='rgba(76, 175, 80, 1)' />
                   <span>{budget}</span>
                 </p>
               </div>
+              <button className={styles['movie-detail__trailer-button']} type='button' onClick={handleShowTrailer}>
+                <FontAwesomeIcon icon={faYoutube} />
+                <span>Watch Trailer</span>
+              </button>
             </div>
           </div>
         </div>

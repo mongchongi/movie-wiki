@@ -1,0 +1,41 @@
+.review {
+  border: 1px solid rgba(179, 87, 96, 1);
+  margin-top: 16px;
+  padding: 0 16px 16px;
+  border-radius: 5px;
+}
+
+.review__author {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.review__created-at {
+  margin-top: 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.review__content--ellipsis {
+  display: -webkit-box;
+  word-wrap: break-word;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.review__toggler {
+  border: none;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 1);
+  cursor: pointer;
+  padding: 5px 16px;
+  display: block;
+  margin-left: auto;
+}
+
+.review__toggler:active {
+  background: rgba(179, 87, 96, 1);
+  color: rgba(255, 255, 255, 1);
+}

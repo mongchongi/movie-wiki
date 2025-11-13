@@ -1,0 +1,140 @@
+.movie-detail__backdrop {
+  height: 600px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  padding: 32px 96px;
+  position: relative;
+}
+
+.movie-detail__backdrop::before {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: var(--backdrop-url);
+  background-size: cover;
+  background-position: center;
+  opacity: 0.3;
+  z-index: -1;
+}
+
+.movie-detail__poster {
+  display: block;
+  width: 300px;
+  height: 100%;
+  border-radius: 5px;
+}
+
+.movie-detail__info {
+  width: 100%;
+}
+
+.movie-detail__title {
+  margin-bottom: 5px;
+}
+
+.movie-detail__meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.movie-detail__meta p {
+  margin-top: 0;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.movie-detail__genre-list {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 32px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.movie-detail__stats {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.movie-detail__stats span {
+  margin-left: 5px;
+}
+
+.movie-detail__cast-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 16px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding-bottom: 24px;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+}
+
+.movie-detail__cast-list::-webkit-scrollbar {
+  background: transparent;
+  height: 8px;
+}
+
+.movie-detail__cast-list::-webkit-scrollbar-thumb {
+  background: rgba(179, 87, 96, 0.5);
+  border-radius: 3px;
+}
+
+.movie-detail__cast-list::-webkit-scrollbar-button {
+  display: none;
+}
+
+.movie-detail__cast-profile {
+  width: 150px;
+  height: 200px;
+  border-radius: 5px;
+  display: block;
+}
+
+.movie-detail__cast-name {
+  margin-bottom: 0;
+}
+
+.movie-detail__review-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+@media all and (max-width: 842px) {
+  .movie-detail__backdrop {
+    height: auto;
+    flex-direction: column;
+    gap: 16px;
+    padding-bottom: 16px;
+  }
+}
+
+@media all and (max-width: 627px) {
+  .movie-detail__backdrop {
+    padding: 24px 24px 8px;
+  }
+}
+
+@media all and (max-width: 400px) {
+  .movie-detail__poster {
+    width: 100%;
+  }
+
+  .movie-detail__stats {
+    font-size: 14px;
+  }
+}

@@ -1,3 +1,115 @@
+.discover {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.discover__filter-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-right: auto;
+}
+
+.discover__dropdown {
+  width: 160px;
+  position: relative;
+  background: rgba(0, 0, 0, 1);
+  border: 2px solid rgba(179, 87, 96, 1);
+  border-radius: 5px;
+}
+
+.discover__dropdown button {
+  width: 100%;
+  border: none;
+  background: transparent;
+  color: rgba(255, 255, 255, 1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px;
+}
+
+.discover__dropdown-icon {
+  position: absolute;
+  right: 8px;
+  margin-bottom: 8px;
+  transition: all 0.5s;
+}
+
+.discover__dropdown-icon--upside-down {
+  transform: scale(1, -1);
+  margin-bottom: unset;
+  margin-top: 8px;
+}
+
+.discover__dropdown ul {
+  position: absolute;
+  top: 40px;
+  left: -2px;
+  width: 160px;
+  z-index: 5;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background: rgba(0, 0, 0, 1);
+  border: 2px solid rgba(179, 87, 96, 1);
+  border-radius: 5px;
+}
+
+.discover__dropdown li {
+  width: 100%;
+  padding: 12px;
+  cursor: pointer;
+}
+
+.discover__dropdown li:hover {
+  color: rgba(179, 87, 96, 1);
+}
+
+.discover__dropdown li:active {
+  color: rgba(179, 87, 96, 1);
+}
+
+.discover__clear-button {
+  border: none;
+  background: transparent;
+  color: rgba(179, 87, 96, 1);
+  cursor: pointer;
+}
+
+.selected-filters {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  margin: 0 0 16px;
+}
+
+.selected-filters__item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(179, 87, 96, 0.5);
+  border-radius: 5px;
+  padding: 5px 8px;
+}
+
+.selected-filters__item p {
+  margin: 0;
+}
+
+.selected-filters__delete-button {
+  border: none;
+  background: transparent;
+  padding: 0;
+  color: rgba(255, 255, 255, 1);
+  cursor: pointer;
+}
+
 .movie-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -11,6 +123,15 @@
 
 @media all and (max-width: 562px) {
   .movie-list > div {
-    height: 450px;
+    height: 550px;
+  }
+
+  .discover {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .discover__filter-controls {
+    margin-left: unset;
   }
 }

@@ -1,7 +1,7 @@
 import { useParams } from 'react-router';
 import { useMovieDetailQuery } from '../../hooks/useMovieDetailQuery';
 import styles from './MovieDetailPage.module.css';
-import { faMoneyBillWave, faStarHalfStroke, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faMoneyBillWave, faStarHalfStroke, faUsers, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useMovieCreditsQuery } from '../../hooks/useMovieCreditsQuery';
 import { useMovieReviewsQuery } from '../../hooks/useMovieReviewsQuery';
@@ -9,7 +9,9 @@ import ReviewItem from './components/ReviewItem/ReviewItem';
 import { faYoutube } from '@fortawesome/free-brands-svg-icons';
 import { useMovieVideosQuery } from '../../hooks/useMovieVideosQuery';
 import YouTube from 'react-youtube';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useMovieRecommendationsQuery } from '../../hooks/useMovieRecommendationsQuery';
+import MovieCard from '../../common/MovieCard/MovieCard';
 
 const MovieDetailPage = () => {
   const [showTrailer, setShowTrailer] = useState(false);
@@ -17,13 +19,14 @@ const MovieDetailPage = () => {
 
   const { id } = useParams();
 
+  const movieCastRef = useRef(null);
+  const movieRecommendationsRef = useRef(null);
+
   const { data: movieData } = useMovieDetailQuery(id);
-
   const { data: movieCreditData } = useMovieCreditsQuery(id);
-
   const { data: movieReviewData } = useMovieReviewsQuery(id);
-
   const { data: movieVideoData } = useMovieVideosQuery(id);
+  const { data: movieRecommendationData } = useMovieRecommendationsQuery(id);
 
   const backdropUrl = {
     '--backdrop-url': `url(https://media.themoviedb.org/t/p/w1066_and_h600_bestv2/${movieData?.backdrop_path})`,
@@ -39,16 +42,25 @@ const MovieDetailPage = () => {
   const handleShowTrailer = () => {
     setRandomIndex(Math.floor(Math.random() * movieVideoData?.results.length));
     setShowTrailer(!showTrailer);
+    window.scrollTo(0, 0);
   };
 
   useEffect(() => {
+    if (movieCastRef.current || movieRecommendationsRef.current) {
+      movieCastRef.current.scrollTo(0, 0);
+      movieRecommendationsRef.current.scrollTo(0, 0);
+    }
+
     window.scrollTo(0, 0);
-  }, []);
+  }, [movieData]);
 
   return (
     <>
       {showTrailer && (
-        <div className={styles['trailer-modal']} onClick={handleShowTrailer}>
+        <div className={styles['trailer-modal']}>
+          <button className={styles['trailer-modal__close-button']} type='button' onClick={handleShowTrailer}>
+            <FontAwesomeIcon icon={faXmark} size='2xl' />
+          </button>
           <YouTube
             videoId={movieVideoData?.results[randomIndex].key}
             opts={{
@@ -107,8 +119,8 @@ const MovieDetailPage = () => {
         </div>
       </section>
       <section>
-        <h2 style={{ color: 'rgba(179, 87, 96, 1)', marginTop: '48px' }}>Main Cast</h2>
-        <ul className={styles['movie-cast']}>
+        <h2 style={{ color: 'rgba(179, 87, 96, 1)', marginTop: '48px' }}>Cast</h2>
+        <ul className={styles['movie-cast']} ref={movieCastRef}>
           {movieCreditData?.cast.map((castMember) => (
             <li key={castMember.id} className={styles['movie-cast__item']}>
               <img
@@ -127,11 +139,21 @@ const MovieDetailPage = () => {
       </section>
       <section>
         <h2 style={{ color: 'rgba(179, 87, 96, 1)', marginTop: '48px' }}>Reviews</h2>
-        <ul className={styles['movie-review']}>
+        <ul className={styles['movie-reviews']}>
           {movieReviewData?.results.length ? (
             movieReviewData?.results.map((review) => <ReviewItem key={review.id} review={review} />)
           ) : (
             <p>There are currently no user reviews for this title.</p>
+          )}
+        </ul>
+      </section>
+      <section>
+        <h2 style={{ color: 'rgba(179, 87, 96, 1)', marginTop: '48px' }}>Recommendations</h2>
+        <ul className={styles['movie-recommendations']} ref={movieRecommendationsRef}>
+          {movieRecommendationData?.results.length ? (
+            movieRecommendationData?.results.map((movie) => <MovieCard key={movie.id} movie={movie} />)
+          ) : (
+            <p>No recommendations available at this time.</p>
           )}
         </ul>
       </section>

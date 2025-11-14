@@ -2,9 +2,10 @@ import { Link, Outlet, useLocation, useNavigate } from 'react-router';
 import styles from './AppLayout.module.css';
 import { useEffect, useRef, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowUp, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
+import { faArrowDown, faArrowUp, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 import { faCopyright } from '@fortawesome/free-regular-svg-icons';
 import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import { useFilterStore } from '../store/useFilterStore';
 
 const pages = [
   {
@@ -22,13 +23,15 @@ const AppLayout = () => {
   const [showMenu, setShowMenu] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [keyword, setKeyword] = useState('');
-  const [isScrollStart, setIsScrollStart] = useState(window.scrollY > 0);
 
   const { pathname } = useLocation();
 
   const navMenuRef = useRef(null);
+  const navSearchInputRef = useRef(null);
 
   const navigate = useNavigate();
+
+  const resetFilters = useFilterStore((state) => state.resetFilters);
 
   const handleShowSearchInput = () => {
     setShowSearchInput((prevShowSearchInput) => !prevShowSearchInput);
@@ -41,6 +44,9 @@ const AppLayout = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
+
+    resetFilters();
+
     navigate(`/movies?q=${keyword}`);
 
     setKeyword('');
@@ -67,20 +73,12 @@ const AppLayout = () => {
   }, [showMenu]);
 
   useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 100) {
-        setIsScrollStart(true);
-      } else {
-        setIsScrollStart(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
+    if (showSearchInput) {
+      setTimeout(() => {
+        navSearchInputRef.current.focus();
+      }, 800);
+    }
+  }, [showSearchInput]);
 
   return (
     <>
@@ -121,6 +119,7 @@ const AppLayout = () => {
                   }`}
                   type='text'
                   placeholder='Search...'
+                  ref={navSearchInputRef}
                   value={keyword}
                   onChange={(e) => setKeyword(e.target.value)}
                 />
@@ -164,13 +163,22 @@ const AppLayout = () => {
           </Link>
         </div>
       </footer>
-      <button
-        type='button'
-        className={`${styles['scroll-top']} ${isScrollStart ? styles['scroll-top--visible'] : ''}`}
-        onClick={() => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })}
-      >
-        <FontAwesomeIcon icon={faArrowUp} />
-      </button>
+      <div className={styles['scroll-movement']}>
+        <button
+          type='button'
+          className={styles['scroll-movement__button']}
+          onClick={() => window.scrollTo({ top: 0, left: 0, behavior: 'smooth' })}
+        >
+          <FontAwesomeIcon icon={faArrowUp} />
+        </button>
+        <button
+          type='button'
+          className={styles['scroll-movement__button']}
+          onClick={() => window.scrollTo({ top: document.documentElement.scrollHeight, left: 0, behavior: 'smooth' })}
+        >
+          <FontAwesomeIcon icon={faArrowDown} />
+        </button>
+      </div>
     </>
   );
 };

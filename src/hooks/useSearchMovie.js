@@ -48,6 +48,5 @@ export const useSearchMovieQuery = (keyword, sort, genre) => {
         movies: uniqueResults,
       };
     },
-    suspense: true,
   });
 };

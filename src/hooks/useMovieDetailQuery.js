@@ -10,6 +10,5 @@ export const useMovieDetailQuery = (movieId) => {
     queryKey: ['movie-detail', movieId],
     queryFn: () => getMovieDetail(movieId),
     select: (result) => result.data,
-    suspense: true,
   });
 };

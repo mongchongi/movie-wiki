@@ -10,6 +10,5 @@ export const useMovieRecommendationsQuery = (movieId) => {
     queryKey: ['movie-recommendations', movieId],
     queryFn: () => getMovieRecommendations(movieId),
     select: (result) => result.data,
-    suspense: true,
   });
 };

@@ -10,6 +10,5 @@ export const useMovieCreditsQuery = (movieId) => {
     queryKey: ['movie-credits', movieId],
     queryFn: () => getMovieCredits(movieId),
     select: (result) => result.data,
-    suspense: true,
   });
 };

@@ -10,18 +10,37 @@ import LoadingSpinner from './common/LoadingSpinner/LoadingSpinner';
 
 const App = () => {
   return (
-    <Suspense fallback={<LoadingSpinner />}>
-      <Routes>
-        <Route path='/' element={<AppLayout />}>
-          <Route index element={<Homepage />} />
-          <Route path='movies'>
-            <Route index element={<MoviesPage />} />
-            <Route path=':id' element={<MovieDetailPage />} />
-          </Route>
+    <Routes>
+      <Route path='/' element={<AppLayout />}>
+        <Route
+          index
+          element={
+            <Suspense fallback={<LoadingSpinner />}>
+              <Homepage />
+            </Suspense>
+          }
+        />
+        <Route path='movies'>
+          <Route
+            index
+            element={
+              <Suspense fallback={<LoadingSpinner />}>
+                <MoviesPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path=':id'
+            element={
+              <Suspense fallback={<LoadingSpinner />}>
+                <MovieDetailPage />
+              </Suspense>
+            }
+          />
         </Route>
-        <Route path='*' element={<NotFoundPage />} />
-      </Routes>
-    </Suspense>
+      </Route>
+      <Route path='*' element={<NotFoundPage />} />
+    </Routes>
   );
 };
 

@@ -10,6 +10,5 @@ export const useMovieVideosQuery = (movieId) => {
     queryKey: ['movie-videos', movieId],
     queryFn: () => getMovieVideos(movieId),
     select: (result) => result.data,
-    suspense: true,
   });
 };

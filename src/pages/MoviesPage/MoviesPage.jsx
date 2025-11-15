@@ -11,8 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useFilterStore } from '../../store/useFilterStore';
 
 const MoviesPage = () => {
-  const { selectedSort, selectedGenres, selectedGenreIds, setSelectedSort, setSelectedGenres, setSelectedGenreIds } =
-    useFilterStore();
+  const { selectedSort, selectedGenres, selectedGenreIds, setSelectedSort, setSelectedGenres } = useFilterStore();
 
   const [query, setQuery] = useSearchParams();
   const keyword = query.get('q');

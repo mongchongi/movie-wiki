@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect } from 'react';
 import { useSearchParams } from 'react-router';
 import { useSearchMovieQuery } from '../../hooks/useSearchMovie';
 import styles from './MoviesPage.module.css';
